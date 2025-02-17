@@ -1,9 +1,10 @@
 import React from 'react'
 import { IoMdClose } from 'react-icons/io'
+import CartContents from '../cart/CartContents'
 
 const CartDrawer = ({ drawerOpen, toggleCartDrawer }) => {
   return (
-    <div className={`fixed top-0 right-0 z-50 w-3/4 sm:w-1/2 md:w-1/4 h-full bg-white shadow-lg transform transition-transform duration-300 ${drawerOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+    <div className={`fixed top-0 right-0 z-50 w-6/7 sm:w-1/2 xl:w-1/4 h-full bg-white shadow-lg transform transition-transform duration-300 ${drawerOpen ? 'translate-x-0' : 'translate-x-full'}`}>
       {/* Main container with flex and scrollable content */}
       <div className="flex flex-col h-full">
         
@@ -17,7 +18,7 @@ const CartDrawer = ({ drawerOpen, toggleCartDrawer }) => {
         {/* Cart content (scrollable) */}
         <div className="flex-grow p-4 overflow-y-auto">
           <h2 className="text-xl font-semibold">Your Cart</h2>
-          {/* Cart items go here */}
+          <CartContents />
         </div>
 
       
