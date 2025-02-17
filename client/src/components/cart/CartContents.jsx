@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { RiDeleteBinLine } from "react-icons/ri";
 
 const CartContents = () => {
@@ -89,8 +89,8 @@ const CartContents = () => {
                 </div>
                 <div>
                     <p>Rs.{product.price.toLocaleString()}</p>
-                    <button>
-                        <RiDeleteBinLine className='h-6 w-6 cursor-pointer text-red-600' />
+                    <button className="ml-6 mt-4">
+                        <RiDeleteBinLine className='h-6 w-6 cursor-pointer   text-red-600' />
                     </button>
                 </div>
             </div>
