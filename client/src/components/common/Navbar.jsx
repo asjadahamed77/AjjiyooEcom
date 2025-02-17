@@ -8,12 +8,18 @@ import {
 } from "react-icons/hi2";
 import SearchBar from "./SearchBar";
 import CartDrawer from "../layout/CartDrawer";
+import { IoMdClose } from "react-icons/io";
 const Navbar = () => {
   const [drawerOpen,setDrawerOpen] = useState(false)
+  const [navDrawerOpen,setNavDrawerOpen] = useState(false)
 
     const toggleCartDrawer = ()=>{
         setDrawerOpen(!drawerOpen)
     }
+
+    const toggleNavDrawer = ()=>{
+      setNavDrawerOpen(!navDrawerOpen)
+  }
 
   return (
     <>
@@ -51,12 +57,29 @@ const Navbar = () => {
         <div className="overflow-hidden">
           <SearchBar />
         </div>
-        <div className="block lg:hidden hover:text-black cursor-pointer ">
+        <div onClick={toggleNavDrawer} className="block lg:hidden hover:text-black cursor-pointer ">
           <HiBars3BottomRight className="h-6 w-6 text-gray-600" />
         </div>
       </div>
     </div>
     <CartDrawer drawerOpen={drawerOpen} toggleCartDrawer={toggleCartDrawer} />
+
+    {/* mobile navigations */}
+    <div className={`fixed top-0 left-0 w-3/4 sm:w-1/2 md:w-2/3 h-full bg-white shadow-lg transform transition-transform duration-300 z-50 ${navDrawerOpen ? "translate-x-0":"-translate-x-full"}`}>
+    <div className="flex justify-end p-4 ">
+      <IoMdClose onClick={toggleNavDrawer} className="w-6 h-6 cursor-pointer text-gray-600 hover:text-gray-800" />
+    </div>
+    <div className="p-4">
+    <h2 className="text-xl font-semibold mb-4">MENU</h2>
+    <div className="flex flex-col gap-4">
+      <Link to={'/'} onClick={toggleNavDrawer} className="text-gray-600 hover:text-gray-800">HOME</Link>
+      <Link to={'/'} onClick={toggleNavDrawer} className="text-gray-600 hover:text-gray-800">MEN</Link>
+      <Link to={'/'} onClick={toggleNavDrawer} className="text-gray-600 hover:text-gray-800">WOMEN</Link>
+      <Link to={'/'} onClick={toggleNavDrawer} className="text-gray-600 hover:text-gray-800">TOP WEAR</Link>
+      <Link to={'/'} onClick={toggleNavDrawer} className="text-gray-600 hover:text-gray-800">BOTTOM WEAR</Link>
+    </div>
+    </div>
+    </div>
     </>
   );
 };
