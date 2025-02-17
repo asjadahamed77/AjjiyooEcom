@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import logo from "../../assets/ajjiyoo.png";
 import { Link } from "react-router-dom";
 import {
@@ -7,8 +7,16 @@ import {
   HiBars3BottomRight,
 } from "react-icons/hi2";
 import SearchBar from "./SearchBar";
+import CartDrawer from "../layout/CartDrawer";
 const Navbar = () => {
+  const [drawerOpen,setDrawerOpen] = useState(false)
+
+    const toggleCartDrawer = ()=>{
+        setDrawerOpen(!drawerOpen)
+    }
+
   return (
+    <>
     <div className="flex items-center justify-between mx-12">
       <Link to={"/"}>
         <img src={logo} alt="ajjiyoo" className="w-36" />
@@ -34,7 +42,7 @@ const Navbar = () => {
         <Link to={"/profile"} className="hover:text-black">
           <HiOutlineUser className="h-6 w-6 text-gray-600" />
         </Link>
-        <div className="relative hover:text-black cursor-pointer ">
+        <div onClick={toggleCartDrawer} className="relative hover:text-black cursor-pointer ">
           <HiOutlineShoppingBag className="h-6 w-6 text-gray-600" />
           <span className="absolute bg-[var(--mainColor)] text-white text-[10px] rounded-full -top-1 -right-2 px-2 py-0.5 ">
             4
@@ -48,6 +56,8 @@ const Navbar = () => {
         </div>
       </div>
     </div>
+    <CartDrawer drawerOpen={drawerOpen} toggleCartDrawer={toggleCartDrawer} />
+    </>
   );
 };
 
