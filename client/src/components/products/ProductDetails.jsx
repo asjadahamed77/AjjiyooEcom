@@ -35,8 +35,20 @@ const ProductDetails = () => {
 
   const handleAddtoCart = ()=>{
     if(!selectedColor || !selectedSize){
-        toast.error("Please select a size and color!!!")
+        toast.error("Please select a size and color!!!", {
+            duration: 2000
+        })
+        return
     }
+    setIsButtonDisabled(true)
+
+    setTimeout(()=>{
+        toast.success("Item added to cart",{
+            duration: 2000
+        })
+        setIsButtonDisabled(false)
+
+    },500)
   }
 
   useEffect(() => {
@@ -161,8 +173,11 @@ const ProductDetails = () => {
             </div>
             <button
             onClick={handleAddtoCart}
-            className="bg-black text-white w-full py-2 px-6 rounded mb-4 cursor-pointer">
-              ADD TO CART
+            disabled = {isButtonDisabled}
+            className={`bg-black text-white w-full py-2 px-6 rounded mb-4 cursor-pointer ${isButtonDisabled?"cursor-not-allowed bg-gray-500":"hover:opacity-80" }`}>
+              {
+                isButtonDisabled ? "ADDING...": "ADD TO CART"
+              }
             </button>
             <div className="mt-10 text-gray-700">
               <h3 className="text-xl font-bold mb-4">Characteristics:</h3>
