@@ -10,4 +10,8 @@
   font-optical-sizing: auto;
   font-style: normal;
   --mainColor: #FF0000
+  
+}
+::-webkit-scrollbar {
+  display: none;
 }
