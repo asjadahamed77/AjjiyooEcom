@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import ProductGrid from "./ProductGrid";
 
 const selectedProduct = {
   name: "Stylish Jacket",
@@ -16,6 +17,33 @@ const selectedProduct = {
     { url: "https://picsum.photos/500/500/?random=2", altText: "Stylish" },
   ],
 };
+
+const similarProducts = [
+    {
+        _id : 1,
+        name: "Stylish Jacket",
+        price: 1750,
+        images: [{url:"https://picsum.photos/500/500/?random=1",ltText: "Stylish" }]
+    },
+    {
+        _id : 2,
+        name: "Stylish Jacket",
+        price: 1750,
+        images: [{url:"https://picsum.photos/500/500/?random=2",ltText: "Stylish" }]
+    },
+    {
+        _id : 3,
+        name: "Stylish Jacket",
+        price: 1750,
+        images: [{url:"https://picsum.photos/500/500/?random=3",ltText: "Stylish" }]
+    },
+    {
+        _id : 4,
+        name: "Stylish Jacket",
+        price: 1750,
+        images: [{url:"https://picsum.photos/500/500/?random=4",ltText: "Stylish" }]
+    },
+]
 
 const ProductDetails = () => {
   const [mainImage, setMainImage] = useState("");
@@ -182,17 +210,23 @@ const ProductDetails = () => {
             <div className="mt-10 text-gray-700">
               <h3 className="text-xl font-bold mb-4">Characteristics:</h3>
               <table className="w-full text-left text-sm text-gray-600">
-                <tbody className="">
+                <tr className="">
                   <td className="py-1">Brand</td>
                   <td className="py-1">{selectedProduct.brand}</td>
-                </tbody>
-                <tbody>
+                </tr>
+                <tr>
                   <td className="py-1">Material</td>
                   <td className="py-1">{selectedProduct.material}</td>
-                </tbody>
+                </tr>
               </table>
             </div>
           </div>
+        </div>
+        <div className="mt-20">
+              <h2 className="text-2xl text-center font-medium mb-4">
+                You May Also Like
+              </h2>
+              <ProductGrid products={similarProducts} />
         </div>
       </div>
     </div>
