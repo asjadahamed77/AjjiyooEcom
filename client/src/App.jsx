@@ -2,6 +2,8 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import UserLayout from './components/layout/UserLayout';
 import Home from './pages/Home';
 import { Toaster } from 'sonner'
+import Login from './pages/Login';
+import Register from './pages/Register';
 
 function App() {
   return (
@@ -10,6 +12,8 @@ function App() {
       <Routes>
         <Route path='/' element={<UserLayout />}>
           <Route index element={<Home />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/register' element={<Register />} />
         </Route>
       </Routes>
     </BrowserRouter>
