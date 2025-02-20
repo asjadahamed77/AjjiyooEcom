@@ -130,7 +130,7 @@ const CollectionPage = () => {
       {/* Mobile Filter Button */}
       <button
         onClick={toggleSidebar}
-        className="lg:hidden  flex justify-center items-center border border-gray-600 p-2 "
+        className="lg:hidden w-32 flex justify-center items-center border border-gray-600 p-2 mt-2 ml-2 rounded-2xl "
       >
         <FaFilter className="mr-2" /> Filters
       </button>
