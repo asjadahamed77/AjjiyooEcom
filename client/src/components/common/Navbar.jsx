@@ -31,7 +31,7 @@ const Navbar = () => {
         <Link to={"/"} className="hover:opacity-80">
           HOME
         </Link>
-        <Link to={"/men"} className="hover:opacity-80">
+        <Link to={"/collections/all"} className="hover:opacity-80">
           MEN
         </Link>
         <Link to={"/women"} className="hover:opacity-80">
@@ -73,7 +73,7 @@ const Navbar = () => {
     <h2 className="text-xl font-semibold mb-4">MENU</h2>
     <div className="flex flex-col gap-4">
       <Link to={'/'} onClick={toggleNavDrawer} className="text-gray-600 hover:text-gray-800">HOME</Link>
-      <Link to={'/'} onClick={toggleNavDrawer} className="text-gray-600 hover:text-gray-800">MEN</Link>
+      <Link to={'/collections/all'} onClick={toggleNavDrawer} className="text-gray-600 hover:text-gray-800">MEN</Link>
       <Link to={'/'} onClick={toggleNavDrawer} className="text-gray-600 hover:text-gray-800">WOMEN</Link>
       <Link to={'/'} onClick={toggleNavDrawer} className="text-gray-600 hover:text-gray-800">TOP WEAR</Link>
       <Link to={'/'} onClick={toggleNavDrawer} className="text-gray-600 hover:text-gray-800">BOTTOM WEAR</Link>
