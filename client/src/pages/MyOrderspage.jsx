@@ -89,7 +89,7 @@ const MyOrdersPage = () => {
                   <td className="py-2 px-2 sm:px-4 sm:py-4">Rs.{order.totalPrice}</td>
                   <td className="py-2 px-2 sm:px-4 sm:py-4 text-center">
                     <span
-                      className={`$ {
+                      className={`${
                         order.isPaid
                           ? "bg-green-100 text-green-700"
                           : "bg-red-100 text-red-700"
