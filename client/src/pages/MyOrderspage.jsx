@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const MyOrdersPage = () => {
   const [orders, setOrders] = useState([]);
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     setTimeout(() => {
@@ -38,8 +41,12 @@ const MyOrdersPage = () => {
     }, 1000);
   }, []);
 
+  const handleRowClick = (orderId)=>{
+    navigate(`/order/${orderId}`)
+  }
+
   return (
-    <div className="w-full mx-auto p-4 sm:p-6">
+    <div className="w-full md:max-w-7xl mx-auto p-4 sm:p-6">
       <h2 className="text-xl sm:text-2xl font-bold mb-6">My Orders</h2>
 
       {/* Large Screen - Table View */}
@@ -62,6 +69,7 @@ const MyOrdersPage = () => {
               orders.map((order, index) => (
                 <tr
                   key={index}
+                  onClick={()=>handleRowClick(order._id) }
                   className="border-b hover:bg-gray-50 cursor-pointer"
                 >
                   <td className="py-2 px-2 sm:py-4 sm:px-4">
@@ -120,6 +128,7 @@ const MyOrdersPage = () => {
           orders.map((order) => (
             <div
               key={order._id}
+              onClick={()=>handleRowClick(order._id) }
               className=" p-4 rounded-lg shadow-md hover:bg-gray-50"
             >
               <div className="flex items-center space-x-4">
