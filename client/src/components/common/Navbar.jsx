@@ -45,6 +45,7 @@ const Navbar = () => {
         </Link>
       </div>
       <div className="flex items-center gap-4">
+        <Link to={'/admin'} className="block bg-black text-white text-sm px-2 py-1 rounded-full">ADMIN</Link>
         <Link to={"/profile"} className="hover:text-black">
           <HiOutlineUser className="h-6 w-6 text-gray-600" />
         </Link>
