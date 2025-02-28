@@ -1,11 +1,17 @@
 import express from 'express'
 import cors from 'cors'
-
+import 'dotenv/config';
+import connectDB from './config/mongodb.js';
 const app = express()
 app.use(express.json())
 app.use(cors())
 
-const PORT = 9000
+
+
+
+const PORT = process.env.PORT || 3000
+
+connectDB()
 
 app.get('/',(req,res)=>{
     res.send("Welcome to Ajjiyoo API")
