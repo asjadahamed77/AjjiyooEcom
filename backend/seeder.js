@@ -4,6 +4,7 @@ import { products } from "./data/products.js";
 import userModel from "./models/userModel.js";
 import productModel from "./models/productModel.js";
 import connectDB from "./config/mongodb.js"; // Import DB connection
+import cartModel from "./models/cartModel.js";
 
 // Function to seed data
 const seedData = async () => {
@@ -13,6 +14,7 @@ const seedData = async () => {
     // Clear existing data
     await userModel.deleteMany();
     await productModel.deleteMany();
+    await cartModel.deleteMany()
 
     // Create a default admin user
     const createdUser = await userModel.create({
