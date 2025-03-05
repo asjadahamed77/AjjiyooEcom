@@ -4,6 +4,7 @@ import 'dotenv/config';
 import connectDB from './config/mongodb.js';
 import userRouter from './routes/userRoutes.js';
 import productRouter from './routes/productRoutes.js';
+import cartRouter from './routes/cartRoutes.js';
 const app = express()
 app.use(express.json())
 app.use(cors())
@@ -17,6 +18,7 @@ connectDB()
 
 app.use('/api/user', userRouter)
 app.use('/api/product', productRouter)
+app.use('/api/cart', cartRouter)
 
 app.get('/',(req,res)=>{
     res.send("Welcome to Ajjiyoo API")
