@@ -23,69 +23,65 @@ const checkoutItemSchema = new mongoose.Schema(
   { _id: false }
 );
 
-const checkoutSchema = new mongoose.Schema({
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "userModel",
-  },
-  checkoutItems: [checkoutItemSchema],
-  shippingAddress: {
-    address: {
-      type: String,
-      required: true,
+const checkoutSchema = new mongoose.Schema(
+  {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "userModel",
     },
-    city: {
-      type: String,
-      required: true,
-    },
-    postalCode: {
-      type: String,
-      required: true,
-    },
-    country: {
-      type: String,
-      required: true,
-    },
-  },
-  paymentMethod: {
-    type: String,
-    required: true,
-  },
-  totalPrice: {
-    type: Number,
-    required: true,
-
-  },
-    isPaid: {
-        type: Boolean,
+    checkoutItems: [checkoutItemSchema],
+    shippingAddress: {
+      address: {
+        type: String,
         required: true,
-      
+      },
+      city: {
+        type: String,
+        required: true,
+      },
+      postalCode: {
+        type: String,
+        required: true,
+      },
+      country: {
+        type: String,
+        required: true,
+      },
+    },
+    paymentMethod: {
+      type: String,
+      required: true,
+    },
+    totalPrice: {
+      type: Number,
+      required: true,
+    },
+    isPaid: {
+      type: Boolean,
+      required: true,
     },
     paidAt: {
-        type: Date,
+      type: Date,
     },
     parymentStatus: {
-        type: String,
-        default: "pending"
+      type: String,
+      default: "pending",
     },
-    paymentDetails:{
-        type: mongoose.Schema.Types.Mixed
+    paymentDetails: {
+      type: mongoose.Schema.Types.Mixed,
     },
     isFinalized: {
-        type: Boolean,
-        default: false
+      type: Boolean,
+      default: false,
     },
     finalizedAt: {
-        type: Date
+      type: Date,
     },
-
-
-
-},
-{ timestamps: true }
+  },
+  { timestamps: true }
 );
 
-
-const checkoutModel = mongoose.models.checkout || mongoose.model("checkout", checkoutSchema);
+const checkoutModel =
+  mongoose.models.checkout || mongoose.model("checkout", checkoutSchema);
 
 export default checkoutModel;
