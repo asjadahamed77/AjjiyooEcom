@@ -35,4 +35,20 @@ adminOrderRouter.put('/:id', protect, admin, async (req, res) => {
     }
 });
 
+// Delete order (Admin)
+adminOrderRouter.delete('/:id', protect, admin, async (req, res) => {
+    try {
+        const order = await orderModel.findById(req.params.id);
+        if (order) {
+            await order.deleteOne();
+            res.json({ message: "Order removed." });
+        } else {
+            res.status(404).json({ message: "Order not found." });
+        }
+    } catch (error) {
+        console.log("Error in adminOrderRouter.delete(): ", error);
+        res.status(500).json({ message: "Server Error in adminOrderRouter.delete()" });
+    }
+});
+
 export default adminOrderRouter;
