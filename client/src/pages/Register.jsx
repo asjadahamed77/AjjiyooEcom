@@ -2,14 +2,18 @@ import { useState } from "react"
 import logo from '../assets/ajjiyoo.png'
 import { Link } from "react-router-dom"
 import registerImg from '../assets/register.webp'
+import { register } from "../redux/slices/authSlice"
+import { useDispatch } from "react-redux"
 
 const Register = () => {
     const [email,setEmail] = useState('')
     const [password,setPassword] = useState('')
     const [name,setName] = useState('')
+    const dispatch = useDispatch()
 
     const handleSubmit = async (e)=> {
         e.preventDefault()
+        dispatch(register({name, email, password}))
     }
 
   return (

@@ -3,7 +3,7 @@ import express from "express";
 import checkoutModel from "../models/checkout.js";
 import cartModel from "../models/cartModel.js";
 import productModel from "../models/productModel.js";
-import orderModel from "../models/order.js";
+import orderModel from "../models/orderModel.js";
 import { protect } from "../middleware/authMiddleware.js";
 
 const checkoutRouter = express.Router();
