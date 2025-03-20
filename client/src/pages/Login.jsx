@@ -2,12 +2,16 @@ import { useState } from "react"
 import logo from '../assets/ajjiyoo.png'
 import { Link } from "react-router-dom"
 import loginImg from '../assets/login.webp'
+import {login} from '../redux/slices/authSlice'
+import { useDispatch } from "react-redux"
 const Login = () => {
     const [email,setEmail] = useState('')
     const [password,setPassword] = useState('')
+    const dispatch = useDispatch()
 
     const handleSubmit = async (e)=> {
         e.preventDefault()
+        dispatch(login({email,password}))
     }
 
   return (
