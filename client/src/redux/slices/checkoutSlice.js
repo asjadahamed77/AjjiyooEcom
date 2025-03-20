@@ -34,10 +34,12 @@ const checkoutSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(createCheckout.pending, (state) => {
-        (state.loading = true), (state.error = null);
+        state.loading = true;
+        state.error = null;
       })
       .addCase(createCheckout.fulfilled, (state, action) => {
-        (state.loading = false), (state.error = action.payload);
+        state.loading = false;
+        state.error = action.payload;
       })
       .addCase(createCheckout.fulfilled, (state, action) => {
         state.loading = false;
@@ -46,4 +48,4 @@ const checkoutSlice = createSlice({
   },
 });
 
-export default checkoutSlice.reducers
+export default checkoutSlice.reducers;
