@@ -1,81 +1,102 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-
 // Async thunk to fetch products by collection and optional filters
 export const fetchProductByFilters = createAsyncThunk(
   "products/fetchByFilters",
-  async ({
-    collection,
-    size,
-    color,
-    gender,
-    minPrice,
-    maxPrice,
-    sortBy,
-    search,
-    category,
-    material,
-    brand,
-    limit,
-  }) => {
-    const query = new URLSearchParams();
-    if (collection) query.append("collection", collection);
-    if (size) query.append("size", size);
-    if (color) query.append("color", color);
-    if (gender) query.append("gender", gender);
-    if (minPrice) query.append("minPrice", minPrice); // Fixed typo
-    if (maxPrice) query.append("maxPrice", maxPrice);
-    if (sortBy) query.append("sortBy", sortBy);
-    if (search) query.append("search", search);
-    if (category) query.append("category", category);
-    if (material) query.append("material", material);
-    if (brand) query.append("brand", brand);
-    if (limit) query.append("limit", limit);
+  async (
+    {
+      collection,
+      size,
+      color,
+      gender,
+      minPrice,
+      maxPrice,
+      sortBy,
+      search,
+      category,
+      material,
+      brand,
+      limit,
+    },
+    { rejectWithValue }
+  ) => {
+    try {
+      const query = new URLSearchParams();
+      if (collection) query.append("collection", collection);
+      if (size) query.append("size", size);
+      if (color) query.append("color", color);
+      if (gender) query.append("gender", gender);
+      if (minPrice) query.append("minPrice", minPrice);
+      if (maxPrice) query.append("maxPrice", maxPrice);
+      if (sortBy) query.append("sortBy", sortBy);
+      if (search) query.append("search", search);
+      if (category) query.append("category", category);
+      if (material) query.append("material", material);
+      if (brand) query.append("brand", brand);
+      if (limit) query.append("limit", limit);
 
-    const { data } = await axios.get(
-      `${import.meta.env.VITE_BACKEND_URL}/api/product?${query.toString()}`
-    );
-    return data;
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_BACKEND_URL}/api/product?${query.toString()}`
+      );
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.message || "Failed to fetch products");
+    }
   }
 );
 
 // Async thunk to fetch a single product by ID
 export const fetchProductDetails = createAsyncThunk(
   "products/fetchProductDetails",
-  async (id) => {
-    const { data } = await axios.get(
-      `${import.meta.env.VITE_BACKEND_URL}/api/product/${id}`
-    );
-    return data;
+  async (id, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_BACKEND_URL}/api/product/${id}`
+      );
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.message || "Failed to fetch product details");
+    }
   }
 );
 
 // Async thunk to update a product
 export const updateProduct = createAsyncThunk(
   "products/updateProduct",
-  async ({ id, productData }) => {
-    const { data } = await axios.put(
-      `${import.meta.env.VITE_BACKEND_URL}/api/product/${id}`,
-      productData,
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("userToken")}`,
-        },
-      }
-    );
-    return data;
+  async ({ id, productData }, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.put(
+        `${import.meta.env.VITE_BACKEND_URL}/api/product/${id}`,
+        productData,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("userToken")}`,
+          },
+        }
+      );
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.message || "Failed to update product");
+    }
   }
 );
 
 // Async thunk to fetch similar products
 export const fetchSimilarProducts = createAsyncThunk(
   "products/fetchSimilarProducts",
-  async (id) => {
-    const { data } = await axios.get(
-      `${import.meta.env.VITE_BACKEND_URL}/api/product/similar/${id}`
-    );
-    return data;
+  async (id, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_BACKEND_URL}/api/product/similar/${id}`
+      );
+      return data;
+    } catch (error) {
+      console.error(error);
+      
+      
+      return rejectWithValue(error.response?.data?.message || "Failed to fetch similar products");
+    }
   }
 );
 
@@ -83,7 +104,7 @@ const productSlice = createSlice({
   name: "products",
   initialState: {
     products: [],
-    selectedProduct: null, // store the details of a single product
+    selectedProduct: null, // Store the details of a single product
     similarProducts: [],
     loading: false,
     error: null,
@@ -134,7 +155,7 @@ const productSlice = createSlice({
       })
       .addCase(fetchProductByFilters.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message;
+        state.error = action.payload || "Failed to fetch products";
       })
 
       // Fetch Single Product Details
@@ -148,7 +169,7 @@ const productSlice = createSlice({
       })
       .addCase(fetchProductDetails.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message;
+        state.error = action.payload || "Failed to fetch product details";
       })
 
       // Update Product
@@ -158,17 +179,17 @@ const productSlice = createSlice({
       })
       .addCase(updateProduct.fulfilled, (state, action) => {
         state.loading = false;
-       const updatedProduct = action.payload
-       const index = state.products.findIndex(
-        (product) => product._id === updateProduct._id
-       )
-       if(index !== -1){
-        state.products[index] = updatedProduct
-       }
+        const updatedProduct = action.payload;
+        const index = state.products.findIndex(
+          (product) => product._id === updatedProduct._id
+        );
+        if (index !== -1) {
+          state.products[index] = updatedProduct;
+        }
       })
       .addCase(updateProduct.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message;
+        state.error = action.payload || "Failed to update product";
       })
 
       // Fetch Similar Products
@@ -178,11 +199,11 @@ const productSlice = createSlice({
       })
       .addCase(fetchSimilarProducts.fulfilled, (state, action) => {
         state.loading = false;
-        state.products = action.payload;
+        state.similarProducts = action.payload;
       })
       .addCase(fetchSimilarProducts.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message;
+        state.error = action.payload || "Failed to fetch similar products";
       });
   },
 });

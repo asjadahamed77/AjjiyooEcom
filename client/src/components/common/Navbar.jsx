@@ -31,16 +31,16 @@ const Navbar = () => {
         <Link to={"/"} className="hover:opacity-80">
           HOME
         </Link>
-        <Link to={"/collections/all"} className="hover:opacity-80">
+        <Link to={"/collections/all?gender=Men"} className="hover:opacity-80">
           MEN
         </Link>
-        <Link to={"/women"} className="hover:opacity-80">
+        <Link to={"/collections/all?gender=Women"}  className="hover:opacity-80">
           WOMEN
         </Link>
-        <Link to={"/top-wear"} className="hover:opacity-80">
+        <Link to={"/collections/all?category=Top Wear"}  className="hover:opacity-80">
           TOP WEAR
         </Link>
-        <Link to={"/bottom-wear"} className="hover:opacity-80">
+        <Link to={"/collections/all?category=Bottom Wear"} className="hover:opacity-80">
           BOTTOM WEAR
         </Link>
       </div>
@@ -74,10 +74,10 @@ const Navbar = () => {
     <h2 className="text-xl font-semibold mb-4">MENU</h2>
     <div className="flex flex-col gap-4">
       <Link to={'/'} onClick={toggleNavDrawer} className="text-gray-600 hover:text-gray-800">HOME</Link>
-      <Link to={'/collections/all'} onClick={toggleNavDrawer} className="text-gray-600 hover:text-gray-800">MEN</Link>
-      <Link to={'/'} onClick={toggleNavDrawer} className="text-gray-600 hover:text-gray-800">WOMEN</Link>
-      <Link to={'/'} onClick={toggleNavDrawer} className="text-gray-600 hover:text-gray-800">TOP WEAR</Link>
-      <Link to={'/'} onClick={toggleNavDrawer} className="text-gray-600 hover:text-gray-800">BOTTOM WEAR</Link>
+      <Link to={"/collections/all?gender=Men"}  onClick={toggleNavDrawer} className="text-gray-600 hover:text-gray-800">MEN</Link>
+      <Link to={"/collections/all?gender=Women"}  onClick={toggleNavDrawer} className="text-gray-600 hover:text-gray-800">WOMEN</Link>
+      <Link to={"/collections/all?category=Top Wear"}  onClick={toggleNavDrawer} className="text-gray-600 hover:text-gray-800">TOP WEAR</Link>
+      <Link to={"/collections/all?category=Bottom Wear"}  onClick={toggleNavDrawer} className="text-gray-600 hover:text-gray-800">BOTTOM WEAR</Link>
     </div>
     </div>
     </div>
