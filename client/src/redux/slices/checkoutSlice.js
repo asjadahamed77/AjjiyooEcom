@@ -7,7 +7,7 @@ export const createCheckout = createAsyncThunk(
   async (checkoutData, { rejectWithValue }) => {
     try {
       const { data } = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/checkout`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/checkout`,
         checkoutData,
         {
           headers: {
@@ -22,7 +22,6 @@ export const createCheckout = createAsyncThunk(
     }
   }
 );
-
 const checkoutSlice = createSlice({
   name: "checkout",
   initialState: {
@@ -39,7 +38,7 @@ const checkoutSlice = createSlice({
       })
       .addCase(createCheckout.fulfilled, (state, action) => {
         state.loading = false;
-        state.checkout = action.payload; // Store API response in checkout state
+        state.checkout = action.payload;
       })
       .addCase(createCheckout.rejected, (state, action) => {
         state.loading = false;
