@@ -15,7 +15,7 @@ export const products = [
     colors: ["Red", "Blue", "Yellow"],
     collections: "Business Casual",
     material: "Cotton",
-    gender: "Men",
+    gender: "Women",
     images: [
       {
         url: "https://picsum.photos/500/500?random=39",

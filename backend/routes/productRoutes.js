@@ -161,6 +161,7 @@ productRouter.get("/", async (req, res) => {
     } = req.query;
 
     let query = {};
+    let sort = {};
 
     // Filter Logic
     if (collection && collection.toLocaleLowerCase() !== "all") {
@@ -230,20 +231,7 @@ productRouter.get("/", async (req, res) => {
   }
 });
 
-// GET a Single Product by ID
-productRouter.get("/:id", async (req, res) => {
-  try {
-    const product = await productModel.findById(req.params.id);
-    if (product) {
-      res.json(product);
-    } else {
-      res.status(404).json({ success: false, message: "Product not found." });
-    }
-  } catch (error) {
-    console.log(error);
-    res.status(500).send("Server Error.");
-  }
-});
+
 
 // Retrieve similar products based on the current's product gender and category
 productRouter.get("/similar/:id", async (req, res) => {
@@ -290,6 +278,21 @@ productRouter.get('/new-arrivals', async(req,res)=>{
     res.status(500).send("Server Error.");
   }
 })
+
+// GET a Single Product by ID (Move this below new-arrivals)
+productRouter.get("/:id", async (req, res) => {
+  try {
+    const product = await productModel.findById(req.params.id);
+    if (product) {
+      res.json(product);
+    } else {
+      res.status(404).json({ success: false, message: "Product not found." });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Server Error.");
+  }
+});
 
 
 

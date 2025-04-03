@@ -1,13 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-// Asynk thunk to create a checkout session
+// Async thunk to create a checkout session
 export const createCheckout = createAsyncThunk(
   "checkout/createCheckout",
   async (checkoutData, { rejectWithValue }) => {
     try {
       const { data } = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/checkout`,
+        `${import.meta.env.VITE_BACKEND_URL}/checkout`,
         checkoutData,
         {
           headers: {
@@ -18,7 +18,7 @@ export const createCheckout = createAsyncThunk(
       return data;
     } catch (error) {
       console.error(error);
-      return rejectWithValue(error.data);
+      return rejectWithValue(error.response?.data || error.message);
     }
   }
 );
@@ -39,13 +39,13 @@ const checkoutSlice = createSlice({
       })
       .addCase(createCheckout.fulfilled, (state, action) => {
         state.loading = false;
-        state.error = action.payload;
+        state.checkout = action.payload; // Store API response in checkout state
       })
-      .addCase(createCheckout.fulfilled, (state, action) => {
+      .addCase(createCheckout.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload.message;
+        state.error = action.payload;
       });
   },
 });
 
-export default checkoutSlice.reducers;
+export default checkoutSlice.reducer;
