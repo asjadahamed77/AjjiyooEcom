@@ -67,7 +67,7 @@ export const updateProduct = createAsyncThunk(
   async ({ id, productData }, { rejectWithValue }) => {
     try {
       const { data } = await axios.put(
-        `${import.meta.env.VITE_BACKEND_URL}/api/product/${id}`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/product/edit/${id}`,
         productData,
         {
           headers: {

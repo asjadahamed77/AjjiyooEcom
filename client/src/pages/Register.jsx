@@ -15,7 +15,7 @@ const Register = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const location  = useLocation()
-    const {user, guestId} = useSelector((state)=>state.auth)
+    const {user, guestId,loading} = useSelector((state)=>state.auth)
     const {cart} = useSelector((state)=>state.cart)
 
     // get redirect parameter and check if its checkout or something
@@ -84,7 +84,7 @@ const Register = () => {
             required
           />
           </div>
-          <button type="submit" className="bg-black text-white w-full py-2 rounded-lg hover:opacity-80 transition-colors mt-2" >Sign Up</button>
+          <button type="submit" className="bg-black text-white w-full py-2 rounded-lg hover:opacity-80 transition-colors mt-2" >{loading?"Loading...":"Sign Up"}</button>
           <p className="mt-6 text-center text-sm"> 
              Already have an account ? <Link to={`/login?redirect=${encodeURIComponent(redirect)}`} className="text-blue-500 hover:underline transition">Sign In</Link>
           </p>

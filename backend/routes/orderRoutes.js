@@ -4,7 +4,7 @@ import { protect } from '../middleware/authMiddleware.js';
 const orderRouter = express.Router();
 
 // Get logged in user orders
-orderRouter.get('/myorders', protect, async (req, res) => {
+orderRouter.get('/my-orders', protect, async (req, res) => {
     try {
         const orders = await orderModel.find({ user: req.user._id }).sort({ createdAt: -1 });
         res.json(orders);

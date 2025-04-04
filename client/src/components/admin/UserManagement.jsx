@@ -1,20 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { addUser, deleteUser, fetchUsers, updateUser } from "../../redux/slices/adminSlice";
 
 const UserManagement = () => {
-  const users = [
-    {
-        _id: 543,
-      name: "Asjad Ahamed",
-      email: "asjad@gmail.com",
-      role: "admin",
-    },
-    {
-        _id: 546,
-      name: "Asjad Ajji",
-      email: "ajji@gmail.com",
-      role: "customer",
-    },
-  ];
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const {user} = useSelector((state)=> state.auth || state)
+  const {users, loading, error} = useSelector((state)=> state.admin || state)
+
+
+  useEffect(() => {
+    if (!user || user.role !== 'admin') {
+      navigate('/');
+    } else {
+      dispatch(fetchUsers());
+    }
+  }, [user, navigate, dispatch]);
+  
 
   const [formData, setFormData] = useState({
     name: "",
@@ -32,6 +36,7 @@ const UserManagement = () => {
 
   const onSubmitHandler = async(e)=>{
     e.preventDefault()
+    dispatch(addUser(formData))
     setFormData({
         name: "",
         email: "",
@@ -41,17 +46,25 @@ const UserManagement = () => {
   }
 
   const handleRoleChange = (userId, newRole) => {
-
+    dispatch(updateUser({ id: userId, role: newRole }))
+    dispatch(fetchUsers())
   }
   const handleDeleteUser = (userId)=> {
 if(window.confirm('Are your sure you want to delete this user')){
-    console.log(userId)
+    dispatch(deleteUser(userId))
 }
   }
 
   return (
     <div className="max-w-7xl mx-auto p-6">
       <h2 className="text-2xl font-bold mb-4">User Management</h2>
+      {
+        loading && <p className="text-gray-500">Loading...</p>
+     
+      }
+      {
+           error && <p className="text-red-500">Error: {error}</p>
+      }
       <div className="p-6 rounded-lg mb-6">
         <h3 className="text-lg font-bold mb-4">Add New User</h3>
         <form onSubmit={onSubmitHandler}>

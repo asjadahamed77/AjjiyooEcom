@@ -55,7 +55,7 @@ export const updateProduct = createAsyncThunk(
 export const deleteProduct = createAsyncThunk(
   "adminProducts/deleteProduct",
   async (id) => {
-    await axios.delete(`${API_URL}/adpi/admin/products/${id}`, {
+    await axios.delete(`${API_URL}/api/product/${id}`, {
       headers: {
         Authorization: USER_TOKEN,
       },

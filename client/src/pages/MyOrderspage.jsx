@@ -1,49 +1,27 @@
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { fetchUserOrders } from "../redux/slices/orderSlice";
 
 const MyOrdersPage = () => {
-  const [orders, setOrders] = useState([]);
+
 
   const navigate = useNavigate()
 
-  useEffect(() => {
-    setTimeout(() => {
-      const mockOrders = [
-        {
-          _id: "12345",
-          createdAt: new Date(),
-          shippingAddress: { city: "Aluthgama", district: "Kalutara" },
-          orderItems: [
-            {
-              name: "Product 1",
-              image: "https://picsum.photos/500/500/?random=1",
-            },
-          ],
-          totalPrice: 12000,
-          isPaid: true,
-        },
-        {
-          _id: "65783",
-          createdAt: new Date(),
-          shippingAddress: { city: "Aluthgama", district: "Kalutara" },
-          orderItems: [
-            {
-              name: "Product 2",
-              image: "https://picsum.photos/500/500/?random=2",
-            },
-          ],
-          totalPrice: 12000,
-          isPaid: false,
-        },
-      ];
+  const dispatch = useDispatch()
+  const {orders, loading, error} = useSelector((state)=> state.orders)
 
-      setOrders(mockOrders);
-    }, 1000);
-  }, []);
+  useEffect(()=>{
+    dispatch(fetchUserOrders())
+
+  },[dispatch])
 
   const handleRowClick = (orderId)=>{
     navigate(`/order/${orderId}`)
   }
+
+  if(loading) return <p className="text-gray-500">Loading...</p>
+  if(error) return <p className="text-red-500">Error: {error}</p>
 
   return (
     <div className="w-full md:max-w-7xl mx-auto p-4 sm:p-6">
@@ -88,7 +66,7 @@ const MyOrdersPage = () => {
                   </td>
                   <td className="py-2 px-2 sm:px-4 sm:py-4">
                     {order.shippingAddress
-                      ? `${order.shippingAddress.city}, ${order.shippingAddress.district}`
+                      ? `${order.shippingAddress.city}, ${order.shippingAddress.country}`
                       : "N/A"}
                   </td>
                   <td className="py-2 px-2 sm:px-4 sm:py-4">

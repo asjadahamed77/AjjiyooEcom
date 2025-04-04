@@ -4,7 +4,7 @@ const checkoutItemSchema = new mongoose.Schema(
   {
     productId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "productModel",
+      ref: "product",
       required: true,
     },
     name: {
@@ -23,6 +23,8 @@ const checkoutItemSchema = new mongoose.Schema(
         type: Number,
         required: true,
       },
+      size: String,
+      color: String
   },
   { _id: false }
 );
@@ -31,7 +33,7 @@ const checkoutSchema = new mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "userModel",
+      ref: "user",
     },
     checkoutItems: [checkoutItemSchema],
     shippingAddress: {
@@ -67,9 +69,10 @@ const checkoutSchema = new mongoose.Schema(
     paidAt: {
       type: Date,
     },
-    parymentStatus: {
+    paymentStatus: {
       type: String,
-      default: "pending",
+      enum: ['Pending', 'Paid', 'Failed', 'Refunded'],
+      default: "Pending",
     },
     paymentDetails: {
       type: mongoose.Schema.Types.Mixed,
