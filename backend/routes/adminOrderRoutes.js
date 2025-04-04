@@ -19,7 +19,7 @@ adminOrderRouter.get('/', protect, admin, async (req, res) => {
 // Update order status (Admin)
 adminOrderRouter.put('/:id', protect, admin, async (req, res) => {
     try {
-        const order = await orderModel.findById(req.params.id);
+        const order = await orderModel.findById(req.params.id).populate('user', 'name')
         if (order) {
             order.status = req.body.status || order.status;
             order.isDelivered = req.body.status === "Delivered" ? true : order.isDelivered;
