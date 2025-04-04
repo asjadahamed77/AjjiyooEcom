@@ -4,7 +4,7 @@ import axios from "axios";
 // Fetch all users (admin only)
 export const fetchUsers = createAsyncThunk("admin/fetchUsers", async (_, { rejectWithValue }) => {
   try {
-    const { data } = await axios.get(
+    const response = await axios.get(
       `${import.meta.env.VITE_BACKEND_URL}/api/admin/users`,
       {
         headers: {
@@ -12,7 +12,7 @@ export const fetchUsers = createAsyncThunk("admin/fetchUsers", async (_, { rejec
         },
       }
     );
-    return data;
+    return response.data;
   } catch (error) {
     console.error(error);
     return rejectWithValue(error.response?.data || "Failed to fetch users");
@@ -26,7 +26,7 @@ export const addUser = createAsyncThunk(
     try {
       const { data } = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/api/admin/users`,
-        userData, // Removed unnecessary object wrapper
+        userData, 
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("userToken")}`,
@@ -46,7 +46,7 @@ export const updateUser = createAsyncThunk(
   "admin/updateUser",
   async ({ id, name, email, role }, { rejectWithValue }) => {
     try {
-      const { data } = await axios.put(
+      const response = await axios.put(
         `${import.meta.env.VITE_BACKEND_URL}/api/admin/users/${id}`,
         { name, email, role },
         {
@@ -55,7 +55,7 @@ export const updateUser = createAsyncThunk(
           },
         }
       );
-      return data;
+      return response.data.user;
     } catch (error) {
       console.error(error);
       return rejectWithValue(error.response?.data || error.message);
