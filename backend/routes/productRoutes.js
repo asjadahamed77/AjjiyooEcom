@@ -126,7 +126,7 @@ productRouter.put("/edit/:id", protect, admin, async (req, res) => {
   }
 });
 // Delete Product by ID
-productRouter.delete("/delete/:id", protect, admin, async (req, res) => {
+productRouter.delete("/:id", protect, admin, async (req, res) => {
   try {
     const product = await productModel.findByIdAndDelete(req.params.id);
 
