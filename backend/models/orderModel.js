@@ -4,7 +4,7 @@ const orderItemSchema = new mongoose.Schema(
   {
     productId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "productModel",
+      ref: "product",
       required: true,
     },
     name: {
@@ -33,7 +33,7 @@ const orderItemSchema = new mongoose.Schema(
 const orderSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "userModel",
+        ref: "user",
         required: true,
     },
     orderItems: [orderItemSchema],
@@ -79,7 +79,8 @@ const orderSchema = new mongoose.Schema({
       },
       paymentStatus:{
         type: String,
-        enum: "Pending"
+        enum: ['Pending', 'Paid', 'Failed', 'Refunded'],
+        default: "Pending"
       },
       status: {
         type: String,
@@ -88,7 +89,7 @@ const orderSchema = new mongoose.Schema({
       },
 
 },
-{ timeseries: true }
+{ timestamps: true }
 )
 
 const orderModel =

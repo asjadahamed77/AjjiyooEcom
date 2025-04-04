@@ -15,6 +15,7 @@ const Navbar = () => {
   const [navDrawerOpen, setNavDrawerOpen] = useState(false);
 
   const { cart } = useSelector((state) => state.cart);
+  const { user } = useSelector((state) => state.auth);
 
   const cartItemCount =
     cart?.products?.reduce((total, product) => total + product.quantity, 0) ||
@@ -61,12 +62,15 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="flex items-center gap-4">
-          <Link
-            to={"/admin"}
-            className="block bg-black text-white text-sm px-2 py-1 rounded-full"
-          >
-            ADMIN
-          </Link>
+          {user && user.role === "admin" && (
+            <Link
+              to={"/admin"}
+              className="block bg-black text-white text-sm px-2 py-1 rounded-full"
+            >
+              ADMIN
+            </Link>
+          )}
+
           <Link to={"/profile"} className="hover:text-black">
             <HiOutlineUser className="h-6 w-6 text-gray-600" />
           </Link>
@@ -75,13 +79,11 @@ const Navbar = () => {
             className="relative hover:text-black cursor-pointer "
           >
             <HiOutlineShoppingBag className="h-6 w-6 text-gray-600" />
-            {
-              cartItemCount > 0 && (
-                <span className="absolute bg-[var(--mainColor)] text-white text-[10px] rounded-full -top-1 -right-2 px-2 py-0.5 ">
-              {cartItemCount}
-            </span>
-              )
-            }
+            {cartItemCount > 0 && (
+              <span className="absolute bg-[var(--mainColor)] text-white text-[10px] rounded-full -top-1 -right-2 px-2 py-0.5 ">
+                {cartItemCount}
+              </span>
+            )}
           </div>
           <div className="overflow-hidden">
             <SearchBar />
