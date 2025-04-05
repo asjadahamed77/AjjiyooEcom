@@ -9,7 +9,7 @@ const GenderCollectionSection = () => {
         <div className="absolute bottom-20 p-4 w-[220px] bg-white text-black ml-16 rounded-xl border-2 border-black cursor-pointer group-hover:-translate-y-4 duration-500 transition-all">
           <p className="text-sm">MENS COLLECTIONS</p>
           <Link
-            to={"/collections/all?gender=men"}
+            to={"/collections/all?gender=Men"}
             className="text-xs underline mt-2"
           >
             SHOP NOW
@@ -21,7 +21,7 @@ const GenderCollectionSection = () => {
         <div className="absolute bottom-20 p-4 w-[220px] bg-white text-black ml-16 rounded-xl border-2 border-black cursor-pointer group-hover:-translate-y-4 duration-500 transition-all">
           <p className="text-sm">WOMENS COLLECTIONS</p>
           <Link
-            to={"/collections/all?gender=women"}
+            to={"/collections/all?gender=Women"}
             className="text-xs underline mt-2"
           >
             SHOP NOW
