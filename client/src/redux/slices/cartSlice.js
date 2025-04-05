@@ -7,9 +7,8 @@ const loadCartFromStorage = () => {
   return storedCart ? JSON.parse(storedCart) : { products: [], totalPrice: 0 };
 };
 
-// Helper function to save cart to localStorage
 const saveCartToStorage = (cart) => {
-  localStorage.setItem("cart", JSON.stringify(cart));
+  localStorage.setItem("cart", JSON.stringify(cart)); // Make sure it’s updated correctly
 };
 
 // Fetch cart for a user or guest
@@ -18,7 +17,7 @@ export const fetchCart = createAsyncThunk(
   async ({ userId, guestId }, { rejectWithValue }) => {
     try {
       const { data } = await axios.get(
-        `${import.meta.env.VITE_BACKEND_URL}/api/cart`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/cart/get`,
         {
           params: { userId, guestId },
         }
@@ -191,7 +190,7 @@ const cartSlice = createSlice({
       .addCase(updateCartItemQuantity.fulfilled, (state, action) => {
         state.loading = false;
         state.cart = action.payload;
-        saveCartToStorage(action.payload);
+        saveCartToStorage(action.payload); // 🔥 Always save latest cart
       })
       .addCase(updateCartItemQuantity.rejected, (state, action) => {
         state.loading = false;
@@ -206,7 +205,7 @@ const cartSlice = createSlice({
       .addCase(removeFromCart.fulfilled, (state, action) => {
         state.loading = false;
         state.cart = action.payload;
-        saveCartToStorage(action.payload);
+        saveCartToStorage(action.payload); // 🔥 Always save latest cart
       })
       .addCase(removeFromCart.rejected, (state, action) => {
         state.loading = false;
